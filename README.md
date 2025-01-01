@@ -1,24 +1,13 @@
-# lion-msc
-LaTeX class for B.Sc. and M.Sc. reports at Leiden Institute of Physics (LION).
+# Thesis template for BSc and MSc students at Leiden Institute of Physics (LION)
+Originally created by [Michiel de Dood](https://github.com/mdedood/lion-msc), updated by me to be a bit more modern and to include a few more features. The refactored version of the template is based on what I found useful whilst writing my own theses. Below you can find an overview of important changes and features.
 
-The purpose of this class is twofold: It creates a uniform layout of the
-student theses from our department. More importantly it contains several
-fields on the front-page that the user needs to fill that are used in the
-university administration (name, student number and name of supervisor)
+Contrary to the original design, this repository has been setup as a template repository instead of publishing the package to CTAN. This way, you can easily obtain the latest version of the tempalate without having to update your LaTeX distribution. To start writing your thesis press the (use this template)[https://github.com/new?template_name=lion-thesis-template&template_owner=jvdoorn] button.
 
-Students are free to change the layout of the text but should leave the 
-title page as it is.
+## Features
+TODO
 
-The complete documentation is provided in lion-msc.pdf. 
+## Important changes
+TODO
 
-The minimal.tex file is an empty template. 
-
-The directory lion-msc contains the flat structure of the package as required by CTAN
-The direcotory tds contains the additional format of the tex directory structure. This 
-latter format should install the Leiden University logo in the right directory.
-
-author: Michiel de Dood <dood@physics.leidenuniv.nl>
-
-Copyright (C) 2014-20 by M.J.A. de Dood
-
-
+## Usage
+TODO

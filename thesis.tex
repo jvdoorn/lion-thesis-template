@@ -1,0 +1,25 @@
+\documentclass[twoside, single]{lion-msc}
+
+% The preamble contains all the necessary packages and definitions.
+\input{preamble.tex}
+
+% Define the title, author, supervisor, etc.
+\title{Thesis title}
+\author{Your Name}
+\degree{Bachelor of Science} % or Master of Science
+\studentid{s1234567}
+\supervisor{Your Supervisor} % or if you have two supervisors: \supervisor{First Supervisor \\ \hspace*{\fill} Second Supervisor}
+\corrector{Your Corrector}
+\abstract{
+    This is where you write your abstract.
+}
+
+\begin{document}
+    \maketitle
+
+    % Include the chapters of your thesis, as separate files.
+    \input{chapters/introduction.tex}
+
+    % Include the bibliography.
+    %\printbibliography
+\end{document}

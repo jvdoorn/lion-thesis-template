@@ -372,3 +372,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Ignore the final PDF
+thesis.pdf

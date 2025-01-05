@@ -1,94 +1,29 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                             %
-% lion-msc.cls                                                                %
-%                                                                             %
-% A LaTeX document class for preparing a bachelor/master thesis according to  %
-% the specifications of the Leiden Institute of Physics (LION),               %
-% Leiden University, The Netherlands                                          %
-%                                                                             %
-%  Original version written by: Michiel de Dood                               %
-%                               Leiden Institute of Physics                   %
-%                               Leiden University                             %
-%                               Niels Bohrweg 2                               %
-%                               2333 CA, Leiden, The Netherlands              %
-%                                                                             %
-%      Please report errors to: Michiel de Dood                               %
-%                       e-mail: dood@physics.leidenuniv.nl                    %
-%                    telephone: +31-(0)71.527.5929                            %
-%                                                                             %
-% Permission to copy all or part of this work is granted.                     %
+% A LaTeX document class for preparing a bachelor/master thesis according to
+% the specifications of the Leiden Institute of Physics (LION),
+% Leiden University, The Netherlands
 %
-% This file may be distributed and/or modified under the
-% conditions of the LaTeX Project Public License, either version 1.3
-% of this license or (at your option) any later version.
-% The latest version of this license is in:
+%  Original version written by:
+%       Michiel de Dood
+%  Updated by:
+%       Julian van Doorn
 %
-%    http://www.latex-project.org/lppl.txt
-%
-% and version 1.3 or later is part of all distributions of LaTeX
-% version 2003/06/01 or later.
-%
-% This work has the LPPL maintenance status "author-maintained".
-%                                                                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Please report issues on GitHub:
+%       https://github.com/jvdoorn/lion-thesis-template/issues
 
-% Considerations:
-% 1. use the ifpdf package to make class a bit more robust?
-% 2. add metadata to pdf?
-% see http://www.howtotex.com/tips-tricks/adding-pdf-metadata-in-latex/
-% \usepackage{ifpdf}
-% \ifpdf
-% \pdfinfo{
-%    /Author (Author Name)
-%    /Title (Adding PDF metadata in LaTeX)
-%    /Keywords (PDF;LaTeX;howtoTeX.com) }
-% \fi
-% 4. potential problem with double line spacing option on title pages.
-
-\typeout{}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{lion-msc}[2020/06/03 v0.30]
+\ProvidesClass{lion-msc}
+
 \typeout{}
-\typeout{Leiden Institute of Physics thesis class - version 0.30}
+\typeout{Leiden Institute of Physics thesis class}
 \typeout{}
-\typeout{Copyright (c) 2014-2020 Michiel de Dood}
-\typeout{Please send questions, comments, additions, complaints to:}
-\typeout{dood@physics.leidenuniv.nl}
+\typeout{Report issues on GitHub:}
+\typeout{https://github.com/jvdoorn/lion-thesis-template/issues}
 \typeout{}
 
-% The following are default options that are passed on to the documentclass
-
-% == start : draft and final options
-% Option [double] (default) - sets a double line spacing for easy commenting
-% Option [single]           - single line spacing for final report
-
-\def\mystretch{1.5}		% This is the default option, sets double line spacing
-                        % if nothing is specified \mystretch is still defined
-\DeclareOption{double}{}	% When [double] is specified do nothing
-\DeclareOption{single}{	% This option creates the final version
-    \typeout{single linespacing}
-    \def\mystretch{1}}	
-
-% Note that the linespacing is set after the \Loadclass command!
-% == ** continued after \Loadclass
-
-% A Master or Bachelor thesis is very similar to a report. The report class
-% is a basic class that should be compatible with many options
-
-\typeout{loading report class}
-
-% Suspicious code. I cannot overule any of these values that are intended to
-% be the default option. In particular the 12pt option...
-
+% Use the report class as a base.
 \PassOptionsToClass{a4paper}{report}
 \PassOptionsToClass{fleqn}{report}
 \PassOptionsToClass{openright}{report}
-
-% 14-03-2017 Michiel de Dood
-% PassOptionsToClass or ExecuteOptions forces the 12 pt font size onto the
-% user. This is unintended behavior, but the report class uses 10 pt font
-% as a default, which is fairly small font
-% http://tex.stackexchange.com/questions/40893/how-to-set-default-font-size-in-latex-cls-file
 
 \def\@@ptsize{12pt}
 \DeclareOption{10pt}{\def\@@ptsize{10pt}}
@@ -99,55 +34,8 @@
 \ProcessOptions\relax
 \LoadClass[\@@ptsize]{report}
 
-% == continue : draft and final options
-\def\baselinestretch{\mystretch}	% This sets the line spacing
-% == end : double and single options
-
-% A number of packages are provided with the class to minimize potential
-% issues with the use of commands. This is equivalent to \usepackage in the
-% tex file.
-
-% Use the natbib package to take care of citations. Place citations between
-% square brackets, comma separated, and sort and combine multiple references.
-% This should resemble a citation used by the APS.
-
-% 10-01-2014 adding the numbers option to natbib seems to avoid the following:
-%            'natbib error bibliography not compatible with author-year citations'
-%            thanks to http://tex.stackexchange.com/questions/54480
-\RequirePackage[square,comma,sort&compress,numbers]{natbib}
-
-% 10-04-2014 added input encoding. Thanks to Merlijn van Deen
-%           This allows to use non-ascii input character, e.g. � instead of \"o
-% 14-03-2017 added latin9 as option to ensure compatibility with LyX for unknown
-%           reasons. Thanks to Vasco Tenner
-\RequirePackage[utf8,latin9]{inputenc}
-
-% Font selection
-% \RequirePackage{mathptmx}
-\RequirePackage{mathpazo}   % Just to make it look less like a Word document
-
-% Special AMS symbols for displaying math
-\RequirePackage{amsmath}
-\RequirePackage{amssymb}
-
-% insertion of graphics
-\RequirePackage[pdftex]{graphicx}
-
-% styling of captions using the captions package
-% 28/03/2014 removed the small (0.5cm) margin for the figure captions
-% 22/05/2014 added hypcap option as suggested by Casper Remeijer
-% 08/07/2013 corrected sl,small override - Tobias de Jong and David Kok
-\RequirePackage[margin=0cm,font={small,sl},labelfont={bf,sl},tableposition=top,singlelinecheck=false,hypcap]{caption}
-
-% Use US english (default) hyphenation rules and provide dutch as an option
-% 14/05/2019 The USenglish as an option started generating errors.
-%            changed the option to english instead hoping for more
-%            stable behavior (M.J.A. de Dood)
-\RequirePackage[dutch,english]{babel}
-
-% For standard formatting of dates I use the datetime package
-% It is important to load this package AFTER the babel package
-\RequirePackage[us,nodayofweek]{datetime}
+% Define the line spacing.
+\def\baselinestretch{1}
 
 % The calc package allows to specify lengths etc. as an arithmetic expression
 \RequirePackage{calc}
@@ -198,9 +86,8 @@
 \def\corrector#1{\gdef\@corrector{#1}}
 \gdef\affiliation#1{\gdef\@affiliation{#1}}
 \gdef\address#1{\gdef\@address{#1}}
-\gdef\degree#1{\gdef\@degree{#1}}   % 22/05/2014 corrected mix-up of degree and major: Error spotted by Leandros Talman
+\gdef\degree#1{\gdef\@degree{#1}}
 \gdef\major#1{\gdef\@major{#1}}
-
 \gdef\theauthor{\@author}
 
 % Optional cover picture
@@ -309,78 +196,19 @@
 	\fi
 }
 
-
-% == end   : title page using titling package
-
-% == start : pagesize commands
-% note: a4 = 297x210 mm, letter = 280x216 mm
-
-% \setlength{\textwidth}{160mm}   % used to be 160
-% \setlength{\textheight}{240mm}  % used to be 240
-
-% Now we need to set margins and headers to center the page on the paper.
-% This can be done with a little help of the calc package.
-
-% \setlength{\oddsidemargin}{(\paperwidth-\textwidth)/2-1in}
-% \setlength{\evensidemargin}{(\paperwidth-\textwidth)/2-1in}
-
-% \setlength{\topmargin}{(\paperheight-\textheight-\headheight-\headsep-\footskip)/2-1in}
-% == end   : pagesize commands
-
-% == start : Bibliography name changed to References
-
-%% Small caps References as labels for page headers
-%% added \itemsep command to adjust vertical space between references
-%% IMPORTANT NOTE: The references consist of one big list with many \bibitems...
-%% VERY IMPORTANT: \def\bibname should be within the thebibliography environment.
-%%                 It seems to be defined elsewhere as well (BibTeX?)
-%\newdimen\bibindent
-%\setlength\bibindent{1.5em}
-%\renewenvironment{thebibliography}[1]
-%    {\def\bibname{References}
-%     \chapter*{\bibname
-%        \@mkboth{\textsc\bibname}{\textsc\bibname}}%
-%      \list{\@biblabel{\@arabic\c@enumiv}}%
-%           {\itemsep 0em
-%            \settowidth\labelwidth{\@biblabel{#1}}%
-%            \leftmargin\labelwidth
-%            \advance\leftmargin\labelsep
-%            \@openbib@code
-%            \usecounter{enumiv}%
-%            \let\p@enumiv\@empty
-%            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
-%      \sloppy
-%      \clubpenalty4000
-%      \@clubpenalty \clubpenalty
-%      \widowpenalty4000%
-%      \sfcode`\.\@m}
-%     {\def\@noitemerr
-%       {\@latex@warning{Empty `thebibliography' environment}}%
-%      \endlist}
-%% == end   : Bibliography name changed to References
-
-% == start : appearance of footnotes
+% Define how footnotes look.
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
-% == end   : appearance of footnotes
 
-% == start : remove dots in TOC.
-\renewcommand{\@dotsep}{10000} %% Default value is 4.5
-% == end   : remove dots in TOC
+% Remove dots from the table of contents.
+\renewcommand{\@dotsep}{10000}
 
-% == start : definition of headers
-% 28/03/2014 - removed font change in the headers and footers.
-
-
-\pagestyle{fancy} % 10/04/2014 I moved this up into the creation of the title.
-                  % 09/07/2014 and I placed it back because it doesn't work!
-
+% Define the headers and footers.
+\pagestyle{fancy}
 \renewcommand{\chaptermark}[1]{\markboth{\small \textit{#1}}{}}
 \renewcommand{\sectionmark}[1]{\markright{\small \textit{\thesection{} #1}}}
 
-%\renewcommand{\sectionmark}[1]{}
-
 \fancyhf{}
-\fancyfoot[CE,CO]{\vskip 5mm \scriptsize{\color{mygrey}Version of \@date -- Created \today~-~\currenttime}}
+\fancyfoot[CE,CO]{\vskip 5mm \scriptsize{\color{mygrey}\input{version} -- Created \today~-~\currenttime}}
 \fancyfoot[RO,LE]{\thepage}
 \fancyhead[RO,LE]{\thepage}
 \fancyhead[LO]{\rightmark}
@@ -393,11 +221,3 @@
     \renewcommand{\footrulewidth}{0pt}
     \renewcommand{\headrulewidth}{0pt}
 }
-% == end   : definition of headers
-
-% Make references etc. available as hyperlinks.
-% 10-01-2014 [hidelinks] option with thanks to Vasco Tenner
-% 11-10-2014 Move this all the way to the end so that appendices work. Thanks to Thomas Ruytenberg
-% 13-03-2016 Suggestion by Max Snijders to add pdfusetitle to the options of hyperref
-%            This adds metadata to the PDF File
-\RequirePackage[pdfusetitle,hidelinks]{hyperref}

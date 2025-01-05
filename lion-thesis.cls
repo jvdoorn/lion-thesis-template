@@ -11,7 +11,7 @@
 %       https://github.com/jvdoorn/lion-thesis-template/issues
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{lion-msc}
+\ProvidesClass{lion-thesis}
 
 \typeout{}
 \typeout{Leiden Institute of Physics thesis class}

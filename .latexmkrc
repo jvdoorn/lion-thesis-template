@@ -1,5 +1,7 @@
-$pdf_mode = 1; # tex -> pdf
+# Always compile to .pdf
+$pdf_mode = 1;
+# Define our main file
 @default_files = ('thesis.tex');
 
-$pdflatex = 'lualatex -shell-escape -latexoption=-file-line-error -f';
-$lualatex = 'lualatex -shell-escape -latexoption=-file-line-error -f';
+# Configure pdf compilation to use lualatex
+$pdflatex = 'lualatex -shell-escape';

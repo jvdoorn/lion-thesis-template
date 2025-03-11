@@ -1,0 +1,45 @@
+name: latex
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    permissions: write-all
+
+    steps:
+      - name: Fetch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Versioning
+        uses: anothrNick/github-tag-action@master
+        id: version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          RELEASE_BRANCHES: main
+          DEFAULT_BUMP: patch
+          DRY_RUN: true # We want to manually create the release.
+          MAJOR_STRING_TOKEN: "[major]"
+          MINOR_STRING_TOKEN: "[minor]"
+          PATCH_STRING_TOKEN: "[patch]"
+      - run: |
+          echo "${{ steps.version.outputs.new_tag }}" > version
+          cat version
+      - name: Compile
+        uses: dante-ev/latex-action@latest
+        with:
+          root_file: thesis.tex
+          args: -lualatex
+      - name: Release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "${{ steps.version.outputs.new_tag }}"
+          prerelease: ${{ github.ref == 'refs/heads/main' && 'false' || 'true' }}
+          files: |
+            thesis.pdf
